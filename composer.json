@@ -1,0 +1,39 @@
+{
+    "name": "rogervila/composer-package-template",
+    "type": "library",
+    "description": "PHP Composer package template",
+    "keywords": [
+        "composer package template"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roger Vilà",
+            "email": "rogervila@me.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^8.0 || ^9.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Example\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Example\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

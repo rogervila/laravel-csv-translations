@@ -1,9 +1,10 @@
 {
-    "name": "rogervila/composer-package-template",
+    "name": "rogervila/laravel-csv-translations",
     "type": "library",
-    "description": "PHP Composer package template",
+    "description": "Load Laravel localizations from a CSV File",
     "keywords": [
-        "composer package template"
+        "laravel csv translations",
+        "laravel csv localization"
     ],
     "license": "MIT",
     "authors": [
@@ -13,7 +14,8 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0"
+        "php": "^7.3 || ^8.0",
+        "laravel/framework": "^8.0 || ^9.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.0",
@@ -26,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Example\\": "src/"
+            "LaravelCSVTranslations\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Example\\": "tests/"
+            "Tests\\LaravelCSVTranslations\\": "tests/"
         }
     },
     "minimum-stability": "dev",

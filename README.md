@@ -1,7 +1,7 @@
 <p align="center"><img width="200" src="https://i.ibb.co/VmZYSSM/csv.png" alt="Laravel CSV Translations" /></p>
 
 [![Build Status](https://github.com/rogervila/laravel-csv-translations/workflows/build/badge.svg)](https://github.com/rogervila/laravel-csv-translations/actions)
-[![StyleCI](https://github.styleci.io/repos/211657121/shield?branch=master)](https://github.styleci.io/repos/211657121)
+[![StyleCI](https://github.styleci.io/repos/211657121/shield?branch=main)](https://github.styleci.io/repos/211657121)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rogervila_laravel-csv-translations&metric=alert_status)](https://sonarcloud.io/dashboard?id=rogervila_laravel-csv-translations)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rogervila_laravel-csv-translations&metric=coverage)](https://sonarcloud.io/dashboard?id=rogervila_laravel-csv-translations)
 

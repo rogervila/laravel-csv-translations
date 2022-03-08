@@ -3,17 +3,51 @@
 [![Build Status](https://github.com/rogervila/laravel-csv-translations/workflows/build/badge.svg)](https://github.com/rogervila/laravel-csv-translations/actions)
 [![StyleCI](https://github.styleci.io/repos/211657121/shield?branch=main)](https://github.styleci.io/repos/211657121)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rogervila_laravel-csv-translations&metric=alert_status)](https://sonarcloud.io/dashboard?id=rogervila_laravel-csv-translations)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rogervila_laravel-csv-translations&metric=coverage)](https://sonarcloud.io/dashboard?id=rogervila_laravel-csv-translations)
 
 [![Latest Stable Version](https://poser.pugx.org/rogervila/laravel-csv-translations/v/stable)](https://packagist.org/packages/rogervila/laravel-csv-translations)
 [![Total Downloads](https://poser.pugx.org/rogervila/laravel-csv-translations/downloads)](https://packagist.org/packages/rogervila/laravel-csv-translations)
 [![License](https://poser.pugx.org/rogervila/laravel-csv-translations/license)](https://packagist.org/packages/rogervila/laravel-csv-translations)
 
-# This package
+# Laravel CSV Translations
 
-## Docs
+## Installation
 
-Documentation can be found on the [Wiki](https://github.com/rogervila/laravel-csv-translations/wiki)
+```sh
+composer require rogervila/laravel-csv-translations
+```
+
+## Configuration
+
+To use Laravel CSV Translations you will have to replace the Laravel TranslationServiceProvider with the package one.
+
+```php
+// config/app.php
+
+// ...
+
+'providers' => [
+        
+        // ...
+        
+        // Illuminate\Translation\TranslationServiceProvider::class,
+        LaravelCSVTranslations\TranslationServiceProvider::class,
+        
+        // ...
+],
+```
+
+Create a `lang.csv` file placed on the `lang` folder, which has a different route depending on the Laravel version.
+
+```php
+// Laravel 8.x
+resources/lang/lang.csv
+
+// Laravel 9.x
+lang/lang.csv
+```
+
+Translations will be loaded from the CSV file if it exists. Otherwise, Laravel's built-in translation system will handle them.
+
 
 ## Author
 

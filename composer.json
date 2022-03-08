@@ -1,12 +1,12 @@
 {
     "name": "rogervila/laravel-csv-translations",
-    "type": "library",
     "description": "Load Laravel localizations from a CSV File",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "laravel csv translations",
         "laravel csv localization"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Roger Vilà",
@@ -18,14 +18,12 @@
         "laravel/framework": "^8.0 || ^9.0"
     },
     "require-dev": {
+        "orchestra/testbench": "^6.0 || ^7.0",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^8.0 || ^9.0"
     },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "LaravelCSVTranslations\\": "src/"
@@ -36,6 +34,18 @@
             "Tests\\LaravelCSVTranslations\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
+        "test": [
+            "@php ./vendor/bin/phpunit",
+            "@php ./vendor/bin/phpstan analyse src tests --level 5"
+        ]
+    }
 }

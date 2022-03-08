@@ -9,7 +9,7 @@ final class LangTest extends TestCase
     {
         parent::setUp();
 
-        // TODO: check why overrideApplicationBindings is not working
+        // overrideApplicationBindings is not working, so we do what TranslationServiceProvider does
         app()->singleton('translation.loader', function ($app) {
             return new CSVLoader($app['files'], $app['path.lang']);
         });
@@ -35,24 +35,26 @@ final class LangTest extends TestCase
 
     public function test_csv_localization(): void
     {
+        $key = 'greetings.good_morning';
+
         app()->setLocale('en');
 
         $this->assertEquals(
-            trans('greetings.good_morning', ['name' => 'John']),
+            trans($key, ['name' => 'John']),
             'Good morning John!'
         );
 
         app()->setLocale('es');
 
         $this->assertEquals(
-            trans('greetings.good_morning', ['name' => 'Juan']),
+            trans($key, ['name' => 'Juan']),
             'Buenos días, Juan!'
         );
 
         app()->setLocale('ca');
 
         $this->assertEquals(
-            trans('greetings.good_morning', ['name' => 'Joan']),
+            trans($key, ['name' => 'Joan']),
             'Bon dia, Joan!'
         );
     }

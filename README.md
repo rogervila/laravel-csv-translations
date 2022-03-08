@@ -18,8 +18,6 @@ Load Laravel localizations from a CSV File
 composer require rogervila/laravel-csv-translations
 ```
 
-## Configuration
-
 To use Laravel CSV Translations you will have to **replace the Laravel TranslationServiceProvider with the package one**.
 
 ```php
@@ -51,6 +49,35 @@ lang/lang.csv
 Translations will be loaded from the CSV file if it exists. Otherwise, Laravel's built-in translation system will handle them.
 
 
+## Configuration
+
+The package allows to configure some of its features.
+
+**There is no config file published by the package**. You might create it to override the package defaults:
+
+```php
+<?php
+
+// config/lang.php
+
+return [
+    'csv' => [
+        'file' => [
+            'name' => 'lang.csv',
+            'length' => 0,
+            'separator' => ',',
+        ],
+        'throw_missing_file_exception' => false,
+        'cache' => [
+            'store' =>  array',
+            'key' => \LaravelCSVTranslations\CSVLoader::class,
+            'seconds' => 0,
+        ],
+    ]
+];
+```
+
+
 ## CSV Format
 
 The `lang.csv` should have **keys on the first column**, and then **one column per locale** with it's [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) as a header.
@@ -74,7 +101,7 @@ The CSV only allows **one dimension, but it allows to use dots**, as shown on th
 
 ### Translation keys column
 
-While keys must be placed on the first column, it's header content does not matter, so it's **not necessary to name it "keys"**
+While keys must be placed on the first column, it's header content does not matter, so it's **not necessary to name it "keys"**.
 
 
 ### Column order

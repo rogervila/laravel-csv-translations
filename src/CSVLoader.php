@@ -50,7 +50,7 @@ class CSVLoader extends FileLoader
             $translation_key_column = $row[0];
 
             return [$translation_key_column => $row[$locale_column]];
-        })->except(config('lang.csv.key_column_header', 'key'))->toArray();
+        })->toArray();
     }
 
     /**
@@ -62,18 +62,18 @@ class CSVLoader extends FileLoader
      */
     protected function getDataFromCSVFile()
     {
-        return Cache::store(config('lang.csv.cache.store', 'array'))->remember(config('lang.csv.cache.key', self::class), config('lang.csv.cache.ttl', 0), function () {
+        return Cache::store(config('lang.csv.cache.store', 'array'))->remember(config('lang.csv.cache.key', self::class), config('lang.csv.cache.seconds', 0), function () {
             $data = [];
 
             if (
-                !file_exists($path = $this->path . '/' . config('lang.csv.file_name', 'lang.csv')) ||
+                !file_exists($path = $this->path . '/' . config('lang.csv.file.name', 'lang.csv')) ||
                 ($handle = fopen($path, 'r')) === false
             ) {
-                throw_if(config('lang.csv.throw_missing_file', false), new RuntimeException("Translation file [{$path}] could not be loaded."));
+                throw_if(config('lang.csv.throw_missing_file_exception', false), new RuntimeException("Translation file [{$path}] could not be loaded."));
                 return [];
             }
 
-            while (($row = fgetcsv($handle, config('lang.csv.length', 0), config('lang.csv.separator', ','))) !== false) {
+            while (($row = fgetcsv($handle, config('lang.csv.file.length', 0), config('lang.csv.file.separator', ','))) !== false) {
                 array_push($data, $row);
             }
 

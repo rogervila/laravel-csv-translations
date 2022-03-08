@@ -38,7 +38,7 @@ To use Laravel CSV Translations you will have to **replace the Laravel Translati
 ],
 ```
 
-Create a `lang.csv` file placed on the `lang` folder, which has a different route depending on the Laravel version.
+**Create a `lang.csv` file placed on the `lang` folder**, which has a different route depending on the Laravel version.
 
 ```php
 // Laravel 8.x

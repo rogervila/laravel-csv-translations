@@ -62,7 +62,7 @@ class CSVLoader extends FileLoader
      */
     protected function getDataFromCSVFile()
     {
-        return Cache::remember(config('lang.csv.cache.key', self::class), config('lang.csv.cache.ttl', 0), function () {
+        return Cache::store(config('lang.csv.cache.store', 'array'))->remember(config('lang.csv.cache.key', self::class), config('lang.csv.cache.ttl', 0), function () {
             $data = [];
 
             if (

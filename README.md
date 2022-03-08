@@ -10,6 +10,8 @@
 
 # Laravel CSV Translations
 
+Load Laravel localizations from a CSV File
+
 ## Installation
 
 ```sh
@@ -18,7 +20,7 @@ composer require rogervila/laravel-csv-translations
 
 ## Configuration
 
-To use Laravel CSV Translations you will have to replace the Laravel TranslationServiceProvider with the package one.
+To use Laravel CSV Translations you will have to **replace the Laravel TranslationServiceProvider with the package one**.
 
 ```php
 // config/app.php
@@ -49,9 +51,48 @@ lang/lang.csv
 Translations will be loaded from the CSV file if it exists. Otherwise, Laravel's built-in translation system will handle them.
 
 
+## CSV Format
+
+The `lang.csv` should have **keys on the first column**, and then **one column per locale** with it's [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) as a header.
+
+| keys                   | custom column                                                 | en                  | es                  | ca              |
+|------------------------|---------------------------------------------------------------|---------------------|---------------------|-----------------|
+| greetings.good_morning | Columns that do not match the current locale are just ignored | Good morning :name! | Buenos días, :name! | Bon dia, :name! |
+
+
+## CSV File Features
+
+The CSV file is quite flexible. These are some of it's features:
+
+
+### Dimensions
+
+Laravel's PHP translation array files allow to have more than one dimension that can be accessed with dots.
+
+The CSV only allows **one dimension, but it allows to use dots**, as shown on the CSV Format example.
+
+
+### Translation keys column
+
+While keys must be placed on the first column, it's header content does not matter, so it's **not necessary to name it "keys"**
+
+
+### Column order
+
+Except for the translation keys column, **the order does not matter**, so you can have N custom coluns between locale columns if you need them.
+
+
+### Custom columns
+
+Sometimes, business wants to have additional columns for translation files, like the view where a translation is placed, it's context, etc.
+
+**You can have as much columns as you need, placed in the order you need**.
+
+
 ## Author
 
 Created by [Roger Vilà](https://rogervila.es)
+
 
 ## License
 

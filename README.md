@@ -26,32 +26,24 @@ To use Laravel CSV Translations you will have to **replace the Laravel Translati
 // ...
 
 'providers' => [
-        
+
         // ...
-        
+
         // Illuminate\Translation\TranslationServiceProvider::class,
         LaravelCSVTranslations\TranslationServiceProvider::class,
-        
+
         // ...
 ],
 ```
 
-**Create a `lang.csv` file placed on the `lang` folder**, which has a different route depending on the Laravel version.
-
-```php
-// Laravel 8.x
-resources/lang/lang.csv
-
-// Laravel 9.x
-lang/lang.csv
-```
+To make it work without modifying any configuration, **Create a `lang.csv` file placed in the `lang` folder**.
 
 Translations will be loaded from the CSV file if it exists. Otherwise, Laravel's built-in translation system will handle them.
 
 
 ## Configuration
 
-The package allows to configure some of its features.
+The package allows configuring some of its features.
 
 **There is no config file published by the package**. You might create it to override the package defaults:
 
@@ -62,15 +54,12 @@ The package allows to configure some of its features.
 
 return [
     'csv' => [
-        'file' => [
-            'name' => 'lang.csv',
-            'length' => 0,
-            'separator' => ',',
-        ],
+        // You might use a custom resolver to get CSV data from elsewhere
+        'resolver' => \LaravelCSVTranslations\CSVLocalFileResolver::class,
         'throw_missing_file_exception' => false,
         'cache' => [
-            'store' =>  array',
             'key' => \LaravelCSVTranslations\CSVLoader::class,
+            'store' =>  'array',
             'seconds' => 0,
         ],
     ]
@@ -80,7 +69,7 @@ return [
 
 ## CSV Format
 
-The `lang.csv` should have **keys on the first column**, and then **one column per locale** with it's [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) as a header.
+The CSV data should have **keys on the first column**, and then **one column per locale** with its [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) as a header.
 
 | keys                   | custom column                                                 | en                  | es                  | ca              |
 |------------------------|---------------------------------------------------------------|---------------------|---------------------|-----------------|
@@ -89,31 +78,31 @@ The `lang.csv` should have **keys on the first column**, and then **one column p
 
 ## CSV File Features
 
-The CSV file is quite flexible. These are some of it's features:
+The CSV data is quite flexible. These are some of its features:
 
 
 ### Dimensions
 
-Laravel's PHP translation array files allow to have more than one dimension that can be accessed with dots.
+Laravel's PHP translation array files allow having more than one dimension that can be accessed with dots.
 
-The CSV only allows **one dimension, but it allows to use dots**, as shown on the CSV Format example.
+The CSV only allows **one dimension, but it allows to use dots**, as shown in the CSV Format example.
 
 
 ### Translation keys column
 
-While keys must be placed on the first column, it's header content does not matter, so it's **not necessary to name it "keys"**.
+While keys must be placed on the first column, its header content does not matter, so it's **not necessary to name it "keys"**.
 
 
 ### Column order
 
-Except for the translation keys column, **the order does not matter**, so you can have N custom coluns between locale columns if you need them.
+Except for the translation keys column, **the order does not matter**, so you can have N custom columns between locale columns if you need them.
 
 
 ### Custom columns
 
-Sometimes, business wants to have additional columns for translation files, like the view where a translation is placed, it's context, etc.
+Sometimes, business wants to have additional columns for translation files, like the view where a translation is placed, its context, etc.
 
-**You can have as much columns as you need, placed in the order you need**.
+**You can have as many columns as you need, placed in the order you need**.
 
 
 ## Author

@@ -66,8 +66,7 @@ return [
 ];
 ```
 
-
-## CSV Format
+## CSV format
 
 The CSV data should have **keys on the first column**, and then **one column per locale** with its [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) as a header.
 
@@ -76,9 +75,9 @@ The CSV data should have **keys on the first column**, and then **one column per
 | greetings.good_morning | Columns that do not match the current locale are just ignored | Good morning :name! | Buenos días, :name! | Bon dia, :name! |
 
 
-## CSV File Features
+## CSV features
 
-The CSV data is quite flexible. These are some of its features:
+The CSV format is quite flexible. These are some of its features:
 
 
 ### Dimensions
@@ -104,6 +103,38 @@ Sometimes, business wants to have additional columns for translation files, like
 
 **You can have as many columns as you need, placed in the order you need**.
 
+
+## CSV data resolver
+
+By default, the package uses the `CSVLocalFileResolver` class that will try to load a `lang.csv` file from the project's `lang` path.
+
+You may create your own CSV Resolver to customize the way to get the data:
+
+```php
+<?php
+
+// config/lang.php
+
+return [
+    'csv' => [
+        'resolver' => \App\Lang\RemoteCSVFileResolver::class,
+    ]
+];
+
+// app/Lang/RemoteCSVFileResolver.php
+
+namespace App\Lang;
+
+use LaravelCSVTranslations\CSVResolverInterface;
+
+class RemoteCSVFileResolver implements CSVResolverInterface
+{
+    public function resolve(): array
+    {
+        // Return the CSV formatted data
+    }
+}
+```
 
 ## Author
 

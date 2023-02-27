@@ -72,10 +72,10 @@ class CSVLoader extends FileLoader
     {
         $resolver = config('lang.csv.resolver', CSVLocalFileResolver::class);
 
-        return match(true) {
+        return match (true) {
             is_string($resolver) && ($instance = app($resolver)) instanceof CSVResolverInterface => $instance,
             is_object($resolver) && $resolver instanceof CSVResolverInterface => $resolver,
-            default => throw new RuntimeException("Resolver [".get_debug_type($resolver)."] must be an instance of ".CSVResolverInterface::class),
+            default => throw new RuntimeException("Resolver [" . get_debug_type($resolver) . "] must be an instance of " . CSVResolverInterface::class),
         };
     }
 }

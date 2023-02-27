@@ -111,7 +111,7 @@ final class LangTest extends TestCase
     public function test_fails_if_resolver_does_not_implement_interface(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->app['config']->set('lang.csv.resolver', new stdClass);
+        $this->app['config']->set('lang.csv.resolver', new stdClass());
 
         trans('this test will fail');
     }

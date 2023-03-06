@@ -84,6 +84,28 @@ final class LangTest extends TestCase
         );
     }
 
+    public function test_skips_row_when_incomplete_or_current_locale_column_is_empty(): void
+    {
+        $this->app->setLocale('en');
+
+        $this->assertEquals(
+            trans('empty_row'),
+            'empty_row'
+        );
+
+        $this->assertEquals(
+            trans('partial_empty_row'),
+            'partial_empty_row'
+        );
+
+        $this->app->setLocale('ca');
+
+        $this->assertEquals(
+            trans('partial_empty_row'),
+            'barça'
+        );
+    }
+
     public function test_custom_resolver(): void
     {
         $data = [

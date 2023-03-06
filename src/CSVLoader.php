@@ -2,6 +2,7 @@
 
 namespace LaravelCSVTranslations;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Translation\FileLoader;
 use RuntimeException;
@@ -43,9 +44,25 @@ class CSVLoader extends FileLoader
             return [];
         }
 
-        return collect($data)->flatMap(
-            static fn ($row): array => [$row[0] => $row[$locale_column]]
-        )->toArray();
+        return collect($data)
+            ->flatMap(
+                static function (mixed $row) use ($locale_column): array {
+                    if ($row instanceof Collection) {
+                        $row = $row->toArray();
+                    }
+
+                    if (!is_array($row)) {
+                        return [];
+                    }
+
+                    /** @var mixed[] $row */
+                    return count($row) > 0 && array_key_exists($locale_column, $row)
+                        ? [$row[0] => $row[$locale_column]]
+                        : [];
+                }
+            )
+            ->reject(static fn (mixed $value): bool => !is_string($value) || $value === '')
+            ->toArray();
     }
 
     /**

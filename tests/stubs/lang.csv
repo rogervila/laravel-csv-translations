@@ -1,2 +1,4 @@
 "keys column header content does not matter","description","en","es","ca"
 "greetings.good_morning","Columns that do not match the current locale are just ignored","Good morning :name!","Buenos días, :name!","Bon dia, :name!"
+"empty_row","","","",""
+"partial_empty_row","description","","madrid","barça"

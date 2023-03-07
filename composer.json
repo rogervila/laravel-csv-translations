@@ -19,7 +19,7 @@
     "require-dev": {
         "orchestra/testbench": "^8.0",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^10.0",
         "psalm/plugin-laravel": "^2.8",
         "vimeo/psalm": "^5.7"
     },
@@ -28,11 +28,6 @@
     "autoload": {
         "psr-4": {
             "LaravelCSVTranslations\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\LaravelCSVTranslations\\": "tests/"
         }
     },
     "config": {

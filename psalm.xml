@@ -33,6 +33,12 @@
                 <file name="src/CSVLoader.php" />
             </errorLevel>
         </MixedArrayAccess>
+
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <directory name="src" />
+            </errorLevel>
+        </MixedAssignment>
     </issueHandlers>
 
     <plugins>

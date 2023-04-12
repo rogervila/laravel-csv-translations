@@ -19,15 +19,16 @@ class CSVLoader extends FileLoader
      */
     public function load($locale, $group, $namespace = null)
     {
-        if ($group === '*' && $namespace === '*' && count($data = $this->getCSVData()) > 0) {
-            return $this->loadCSVLocalizedData($data, $locale);
-        }
-
-        return parent::load($locale, $group, $namespace);
+        return config('lang.csv.enabled', true) === true && $group === '*' && $namespace === '*' && count($data = $this->getCSVData()) > 0
+            ? $this->loadCSVLocalizedData($data, $locale)
+            : parent::load($locale, $group, $namespace);
     }
 
     /**
+     * @param mixed[] $data
      * @return mixed[]
+     *
+     * @throws RuntimeException
      */
     protected function loadCSVLocalizedData(array $data, string $locale): array
     {

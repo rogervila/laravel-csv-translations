@@ -62,6 +62,30 @@ final class LangTest extends TestCase
         );
     }
 
+    public function test_translation_when_specifically_enabled(): void
+    {
+        $key = 'greetings.good_morning';
+        $this->app->setLocale('ca');
+
+        $this->app['config']->set('lang.csv.enabled', true);
+        $this->assertEquals(
+            trans($key, ['name' => 'Joan']),
+            'Bon dia, Joan!'
+        );
+    }
+
+    public function test_skips_translation_if_disabled(): void
+    {
+        $key = 'greetings.good_morning';
+        $this->app->setLocale('ca');
+
+        $this->app['config']->set('lang.csv.enabled', false);
+        $this->assertEquals(
+            $key,
+            trans($key, ['name' => 'Joan'])
+        );
+    }
+
     public function test_skips_translation_if_not_found_on_csv_file(): void
     {
         $this->app->setLocale('ca');

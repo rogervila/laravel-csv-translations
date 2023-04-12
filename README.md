@@ -54,6 +54,7 @@ The package allows configuring some of its features.
 
 return [
     'csv' => [
+        'enabled' => (bool) env('CSV_TRANSLATIONS_ENABLED', true),
         // You might use a custom resolver to get CSV data from elsewhere
         'resolver' => \LaravelCSVTranslations\CSVLocalFileResolver::class,
         'throw_missing_file_exception' => false,

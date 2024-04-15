@@ -181,5 +181,9 @@ final class LangTest extends TestCase
         $raw = $loader->raw('en');
         $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'en');
         $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
+
+        $raw = $loader->raw(uniqid('unknown')); // fallback lang is 'en'
+        $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'en');
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
     }
 }

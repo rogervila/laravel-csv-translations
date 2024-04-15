@@ -145,7 +145,7 @@ class RemoteCSVFileResolver implements CSVResolverInterface
 
 ## Access raw data
 
-Sometimes is useful to access the raw data to list all available translation keys and their values. 
+Sometimes it is useful to access the raw data to list all available translation keys and their values. 
 
 To do so, `CSVLoader` comes with a handy `raw` method.
 

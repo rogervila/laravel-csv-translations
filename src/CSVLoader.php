@@ -96,4 +96,9 @@ class CSVLoader extends FileLoader
             default => throw new RuntimeException("Resolver [" . get_debug_type($resolver) . "] must be an instance of " . CSVResolverInterface::class),
         };
     }
+
+    public function raw(string $locale): array
+    {
+        return $this->loadCSVLocalizedData($this->getCSVData(), $locale);
+    }
 }

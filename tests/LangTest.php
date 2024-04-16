@@ -163,7 +163,7 @@ final class LangTest extends TestCase
         trans('this test will fail');
     }
 
-    public function test_access_raw_data()
+    public function test_access_raw_data(): void
     {
         $loader = $this->app['translation.loader'];
         $this->assertInstanceOf(CSVLoader::class, $loader);

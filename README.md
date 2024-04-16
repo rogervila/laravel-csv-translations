@@ -147,16 +147,16 @@ class RemoteCSVFileResolver implements CSVResolverInterface
 
 Sometimes it is useful to access the raw data to list all available translation keys and their values. 
 
-To do so, `CSVLoader` comes with a handy `raw` method.
+To do so, `CSVLoader` comes with a handy `raw` method that returns an associative array with all translation keys and their raw values.
 
 ```php
-// Get the translation loader
+// If TranslationServiceProvider is correctly configured, 'translation.loader' should be an instance of CSVLoader 
+
+/** @var CSVLoader $loader */
 $loader = $this->app['translation.loader'];
 
-// If \LaravelCSVTranslations\TranslationServiceProvider is correctly configured, it should be an instance of CSVLoader 
-$this->assertInstanceOf(\LaravelCSVTranslations\CSVLoader::class, $loader);
-
-$raw = $loader->raw('ca') // Will return an array with raw data
+// Raw method returns an associative array with all translation keys and their raw values
+$raw = $loader->raw('ca') 
 /*
 [
   "greetings.good_morning" => "Bon dia, :name!",

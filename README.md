@@ -159,7 +159,6 @@ $this->assertInstanceOf(\LaravelCSVTranslations\CSVLoader::class, $loader);
 $raw = $loader->raw('ca') // Will return an array with raw data
 /*
 [
-  "keys" => "ca",
   "greetings.good_morning" => "Bon dia, :name!",
   // ...
 ]

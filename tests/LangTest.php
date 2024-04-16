@@ -169,21 +169,27 @@ final class LangTest extends TestCase
         $this->assertInstanceOf(CSVLoader::class, $loader);
 
         $raw = $loader->raw('es');
-        $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'es');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
         $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Buenos días, :name!');
         $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'madrid');
 
         $raw = $loader->raw('ca');
-        $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'ca');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
         $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Bon dia, :name!');
         $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'barça');
 
         $raw = $loader->raw('en');
-        $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'en');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
         $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
 
         $raw = $loader->raw(uniqid('unknown')); // fallback lang is 'en'
-        $this->assertTrue(array_key_exists('keys column header content does not matter', $raw) && $raw['keys column header content does not matter'] === 'en');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
         $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
+
+        $this->app['config']->set('app.fallback_locale', 'ca');
+        $raw = $loader->raw(uniqid('unknown')); // fallback lang is 'ca'
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Bon dia, :name!');
+        $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'barça');
     }
 }

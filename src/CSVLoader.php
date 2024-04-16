@@ -102,6 +102,12 @@ class CSVLoader extends FileLoader
      */
     public function raw(string $locale): array
     {
-        return $this->loadCSVLocalizedData($this->getCSVData(), $locale);
+        $raw = $this->loadCSVLocalizedData($this->getCSVData(), $locale);
+
+        if (count($raw) > 0) {
+            unset($raw[array_keys($raw)[0]]);
+        }
+
+        return $raw;
     }
 }

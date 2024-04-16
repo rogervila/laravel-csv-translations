@@ -97,6 +97,9 @@ class CSVLoader extends FileLoader
         };
     }
 
+    /**
+     * @return mixed[]
+     */
     public function raw(string $locale): array
     {
         return $this->loadCSVLocalizedData($this->getCSVData(), $locale);

@@ -5,3 +5,5 @@ junit-logfile.xml
 clover.xml
 composer.lock
 *.cache
+.vscode/
+.idea/

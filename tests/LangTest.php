@@ -1,5 +1,6 @@
 <?php
 
+use LaravelCSVTranslations\CSVLoader;
 use LaravelCSVTranslations\CSVResolverInterface;
 use Orchestra\Testbench\TestCase;
 
@@ -160,5 +161,35 @@ final class LangTest extends TestCase
         $this->app['config']->set('lang.csv.resolver', new stdClass());
 
         trans('this test will fail');
+    }
+
+    public function test_access_raw_data(): void
+    {
+        $loader = $this->app['translation.loader'];
+        $this->assertInstanceOf(CSVLoader::class, $loader);
+
+        $raw = $loader->raw('es');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Buenos días, :name!');
+        $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'madrid');
+
+        $raw = $loader->raw('ca');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Bon dia, :name!');
+        $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'barça');
+
+        $raw = $loader->raw('en');
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
+
+        $raw = $loader->raw(uniqid('unknown')); // fallback lang is 'en'
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Good morning :name!');
+
+        $this->app['config']->set('app.fallback_locale', 'ca');
+        $raw = $loader->raw(uniqid('unknown')); // fallback lang is 'ca'
+        $this->assertArrayNotHasKey('keys column header content does not matter', $raw);
+        $this->assertTrue(array_key_exists('greetings.good_morning', $raw) && $raw['greetings.good_morning'] === 'Bon dia, :name!');
+        $this->assertTrue(array_key_exists('partial_empty_row', $raw) && $raw['partial_empty_row'] === 'barça');
     }
 }

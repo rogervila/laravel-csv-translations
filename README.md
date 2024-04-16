@@ -22,18 +22,24 @@ To use Laravel CSV Translations you will have to **replace the Laravel Translati
 
 ```php
 // config/app.php
-
-// ...
-
 'providers' => [
-
-        // ...
-
-        // Illuminate\Translation\TranslationServiceProvider::class,
-        LaravelCSVTranslations\TranslationServiceProvider::class,
-
-        // ...
+    // ...
+    // Illuminate\Translation\TranslationServiceProvider::class,
+    LaravelCSVTranslations\TranslationServiceProvider::class,
+    // ...
 ],
+```
+
+If your project uses `Illuminate\Support\ServiceProvider`, replace it via the `replace` method.
+
+```php
+// config/app.php
+'providers' => ServiceProvider::defaultProviders()
+    ->replace([
+        \Illuminate\Translation\TranslationServiceProvider::class => \LaravelCSVTranslations\TranslationServiceProvider::class,
+    ])->merge([
+        // ...
+    ])->toArray(),
 ```
 
 To make it work without modifying any configuration, **Create a `lang.csv` file placed in the `lang` folder**.
@@ -135,6 +141,28 @@ class RemoteCSVFileResolver implements CSVResolverInterface
         // Return the CSV formatted data
     }
 }
+```
+
+## Access raw data
+
+Sometimes it is useful to access the raw data to list all available translation keys and their values. 
+
+To do so, `CSVLoader` comes with a handy `raw` method that returns an associative array with all translation keys and their raw values.
+
+```php
+// If TranslationServiceProvider is correctly configured, 'translation.loader' should be an instance of CSVLoader 
+
+/** @var CSVLoader $loader */
+$loader = $this->app['translation.loader'];
+
+// Raw method returns an associative array with all translation keys and their raw values
+$raw = $loader->raw('ca') 
+/*
+[
+  "greetings.good_morning" => "Bon dia, :name!",
+  // ...
+]
+*/
 ```
 
 ## Author
